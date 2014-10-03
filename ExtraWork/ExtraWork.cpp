@@ -16,17 +16,12 @@
 *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define WIN32_LEAN_AND_MEAN
-
 #include <Windows.h>
 #include "ExtraWork.h"
 
 BOOL __fastcall ExtraWork(EXTRAWORK *inStruct, int unused)
 {
-	if (inStruct)
-		strcpy_s(inStruct->OutBuffer, sizeof(inStruct->OutBuffer), "IX86ExtraWork v1.0 by xboi209");
-	else
-		return FALSE;
+	strcpy_s(inStruct->OutBuffer, sizeof(inStruct->OutBuffer), "IX86ExtraWork v1.0(Dev) by xboi209");
 
 	return TRUE;
 }
