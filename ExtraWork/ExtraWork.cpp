@@ -19,71 +19,14 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include <Windows.h>
-#include <TlHelp32.h>
 #include "ExtraWork.h"
 
-BOOL __cdecl ExtraWork(EXTRAWORK inStruct);
-void sexp();
-void w3xp();
-void d2xp();
-BOOL CALLBACK enumWindowsProc(HWND hWnd, LPARAM lParam);
-
-BOOL __cdecl ExtraWork(EXTRAWORK inStruct)
+BOOL __fastcall ExtraWork(EXTRAWORK *inStruct, int unused)
 {
-	game.pid = GetCurrentProcessId();
-	game.handle = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_DUP_HANDLE | PROCESS_QUERY_INFORMATION | PROCESS_SET_INFORMATION | PROCESS_SUSPEND_RESUME | PROCESS_TERMINATE | PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE, FALSE, game.pid);
-	EnumWindows((WNDENUMPROC)enumWindowsProc, NULL);
-	GetClassName(game.hWnd, (LPTSTR)game.classname, 256/*number of characters, not bytes*/);
-
-	//Check what the game is and call a function specifically for that game
-	if (strcmp(game.classname, SEXP) == 0)
-		sexp();
-	else if (strcmp(game.classname, W3XP) == 0)
-		w3xp();
-	else if (strcmp(game.classname, D2XP) == 0)
-		d2xp();
+	if (inStruct)
+		strcpy_s(inStruct->OutBuffer, sizeof(inStruct->OutBuffer), "Hello!");
 	else
 		return FALSE;
-
-	return TRUE;
-}
-
-
-void sexp()
-{
-	return;
-}
-
-void w3xp()
-{
-	return;
-}
-
-void d2xp()
-{
-	return;
-}
-
-BOOL CALLBACK enumWindowsProc(HWND hWnd, LPARAM lParam)
-{
-	DWORD tempPID;
-	char className[256];
-
-	GetWindowThreadProcessId(hWnd, &tempPID);
-
-	if (tempPID == game.pid)
-	{
-		GetClassName(hWnd, className, 256/*number of characters, not bytes*/);
-
-		for (int i = 0; i < classNameElementSize; ++i)
-		{
-			if (strcmp(classNames[i], className) == 0)
-			{
-				game.hWnd = hWnd;
-				return FALSE;
-			}
-		}
-	}
 
 	return TRUE;
 }

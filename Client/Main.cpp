@@ -23,56 +23,26 @@
 
 using namespace std;
 
-//Example:	Client IX86ExtraWork.dll 0x3 4
-//		Program DLL Gametype Length
 int main(int argc, char ** argv)
 {
 	HINSTANCE		hLib;
 	ExtraWorkProc	lpfnExtraWork;
 	BOOL			bReturn = NULL;
 	EXTRAWORK		ew;
-	char			*dllname;
+	char			*dllname = "IX86ExtraWork.dll";
 
+	ew.GameType = 0x3;
+	ew.Length = 4;
+	strcpy_s(ew.OutBuffer, sizeof(ew.OutBuffer), "\0");
+	
+	hLib = LoadLibrary(dllname)
+	bReturn = (*lpfnExtraWork)(&ew, 0);
 
-	if (argc != 1 && argc != 4)
-	{
-		cout << "Invalid number of arguments" << endl;
-		return 0;
-	}
-	else if (argc == 1)	//Default values if no arguments are passed
-	{
-		dllname = "IX86ExtraWork.dll";
-		ew.GameType = 0x3;
-		ew.Length = 4;
-	}
-	else //4 arguments
-	{
-		dllname = argv[1];
-		ew.GameType = (WORD)strtoul(argv[2], NULL, 16);
-		ew.Length = atoi(argv[3]);
-	}
-	*ew.OutBuffer = 0;
+	cout << "ExtraWork returned " << (bReturn ? "TRUE" : "FALSE") << endl;
+	cout << "GameType: " << ew.GameType << "\t\t" << "Length: " << ew.Length << endl;
+	cout << "Message: " << ew.OutBuffer << endl;
 
-
-	if (hLib = LoadLibrary(dllname))
-	{
-		if (lpfnExtraWork = (ExtraWorkProc)GetProcAddress(hLib, "ExtraWork"))
-		{
-			bReturn = (*lpfnExtraWork)(&ew);
-
-			cout << "ExtraWork returned " << (bReturn ? "TRUE" : "FALSE") << endl;
-			cout << "GameType: " << ew.GameType << "\t\t" << "Length: " << ew.Length << endl;
-			cout << "Message: " << ew.OutBuffer << endl;
-		}
-
-		FreeLibrary(hLib);
-	}
-
-	if (!bReturn)
-	{
-		cout << "Could not load " << dllname << endl;
-	}
-
+	FreeLibrary(hLib);
 
 	return 0;
 }
