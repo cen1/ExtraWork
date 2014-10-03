@@ -24,7 +24,7 @@
 BOOL __fastcall ExtraWork(EXTRAWORK *inStruct, int unused)
 {
 	if (inStruct)
-		strcpy_s(inStruct->OutBuffer, sizeof(inStruct->OutBuffer), "Hello!");
+		strcpy_s(inStruct->OutBuffer, sizeof(inStruct->OutBuffer), "IX86ExtraWork v1.0 by xboi209");
 	else
 		return FALSE;
 
