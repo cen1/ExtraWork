@@ -19,7 +19,7 @@
 #include <Windows.h>
 #include "ExtraWork.h"
 
-BOOL __fastcall ExtraWork(EXTRAWORK *inStruct, int unused)
+__declspec(dllexport) BOOL __fastcall ExtraWork(EXTRAWORK *inStruct, int unused)
 {
 	strcpy_s(inStruct->OutBuffer, sizeof(inStruct->OutBuffer), "IX86ExtraWork v1.0(Dev) by xboi209");
 
