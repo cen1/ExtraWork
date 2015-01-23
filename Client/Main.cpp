@@ -26,7 +26,7 @@ using namespace std;
 int main(int argc, char ** argv)
 {
 	HINSTANCE		hLib;
-	ExtraWorkProc	lpfnExtraWork;
+	ExtraWorkProc	lpfnExtraWork = NULL;
 	BOOL			bReturn = NULL;
 	EXTRAWORK		ew;
 	char			*dllname = "IX86ExtraWork.dll";
@@ -35,7 +35,7 @@ int main(int argc, char ** argv)
 	ew.Length = 4;
 	strcpy_s(ew.OutBuffer, sizeof(ew.OutBuffer), "\0");
 	
-	hLib = LoadLibrary(dllname)
+	hLib = LoadLibrary(dllname);
 	bReturn = (*lpfnExtraWork)(&ew, 0);
 
 	cout << "ExtraWork returned " << (bReturn ? "TRUE" : "FALSE") << endl;
