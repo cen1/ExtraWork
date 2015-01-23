@@ -23,4 +23,4 @@ struct EXTRAWORK
 	char OutBuffer[1024];
 };
 
-BOOL __fastcall ExtraWork(EXTRAWORK *inStruct, int unused);
+__declspec(dllexport) BOOL __fastcall ExtraWork(EXTRAWORK *inStruct, int unused);
